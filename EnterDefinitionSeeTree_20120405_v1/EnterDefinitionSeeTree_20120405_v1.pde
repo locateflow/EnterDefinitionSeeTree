@@ -25,5 +25,14 @@ void keyPressed() {
     // Each character typed by the user is added to the end of the String variable.
     typing = typing + key; 
   }
-}    
+}   
+
+class Unit {
+  Unit[] children; String self;
+  Unit (String self_in){
+    self = self_in;
+  }
+  
+  void addChild(String child_self){
+    Unit
   
