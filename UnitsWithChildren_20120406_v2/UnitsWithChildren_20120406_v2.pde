@@ -37,6 +37,7 @@ void draw() {
   u.addChild("is");
   u.addChild("isn't");
 //  text(u.self, height/2, width/2);
+  translate(100, height/2);
   u.display();
 }
 
@@ -76,22 +77,18 @@ class Unit {
     children.add(new Unit(child_self));
   }
   void display() {
-    translate(100, height/2);
     textAlign(CENTER);
-  text(self, 0, 0);
-  
-  int numSiblings = children.size();
-  translate(textWidth(self), 0);
-  rotate((-PI/4)*(numSiblings));
-  
-  for (int i = 0; i< numSiblings; i++){
-  Unit C = (Unit) children.get(i);  
-  
-//  pushMatrix();
-  rotate(PI/4);
-
-  text(C.self, 200, 0);
-//  popMatrix();
-  }
+    text(self, 0, 0);  
+    int numSiblings = children.size();
+    translate(textWidth(self), 0);
+    rotate((-PI/4)*(numSiblings));
+    for (int i = 0; i< numSiblings; i++){
+      Unit C = (Unit) children.get(i);    
+      rotate(PI/4);
+      pushMatrix();
+       translate(200,0);
+       C.display();
+      popMatrix();
+    }  
   }  
 }
