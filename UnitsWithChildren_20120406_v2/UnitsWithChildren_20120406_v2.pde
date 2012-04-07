@@ -1,7 +1,6 @@
 
 ArrayList words;
 String[] st = new String[1];
-int count = 0;
 String[] tempSt;
 Unit u;
 String S;
@@ -36,9 +35,14 @@ void draw() {
   Unit u = new Unit("Creativity");
   u.addChild("is");
   u.addChild("isn't");
+  u.addChild("could");
+  u.addChild("could");
+  u.addChild("could");
 //  text(u.self, height/2, width/2);
+  pushMatrix();
   translate(100, height/2);
   u.display();
+  popMatrix();
 }
 
 void keyPressed() {
@@ -46,7 +50,7 @@ void keyPressed() {
   if (key == '\n' ) {
     saved = typing;
 //    st[count] = typing;
-    count = count + 1;
+
     tempSt = st;
 //    String[] st = new String[count+1];
 //    units.add(new Unit(typing));
@@ -77,18 +81,19 @@ class Unit {
     children.add(new Unit(child_self));
   }
   void display() {
-    textAlign(CENTER);
-    text(self, 0, 0);  
+    
+    text(self+' '+children.size(), 0, 0);  
     int numSiblings = children.size();
-    translate(textWidth(self), 0);
-    rotate((-PI/4)*(numSiblings));
+//    translate(textWidth(self), 0);
+    rotate((-PI/4));
     for (int i = 0; i< numSiblings; i++){
       Unit C = (Unit) children.get(i);    
-      rotate(PI/4);
+      
       pushMatrix();
        translate(200,0);
        C.display();
       popMatrix();
+      rotate((PI/2)/(numSiblings-1));
     }  
   }  
 }
