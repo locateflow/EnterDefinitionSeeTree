@@ -75,12 +75,14 @@ class Unit {
     children.add(new Unit(child_self));
   }
   void display() {
-  text(self, height/2, width/2);
+    translate(height/2, width/2);
+  text(self, 0, 0);
   Unit C = (Unit) children.get(0);
   
   pushMatrix();
+  translate(textWidth(self), 0);
   rotate(PI/8);
-  text(' '+C.self, width/2+textWidth(self), height/2);
+  text(' '+C.self, 0, 0);
   popMatrix();
   }  
 }
