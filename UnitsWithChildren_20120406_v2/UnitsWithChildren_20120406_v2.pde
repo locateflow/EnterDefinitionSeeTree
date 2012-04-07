@@ -35,6 +35,7 @@ void draw() {
   text(saved,indent,130);  
   Unit u = new Unit("Creativity");
   u.addChild("is");
+  u.addChild("isn't");
 //  text(u.self, height/2, width/2);
   u.display();
 }
@@ -75,14 +76,22 @@ class Unit {
     children.add(new Unit(child_self));
   }
   void display() {
-    translate(height/2, width/2);
+    translate(100, height/2);
+    textAlign(CENTER);
   text(self, 0, 0);
-  Unit C = (Unit) children.get(0);
   
-  pushMatrix();
+  int numSiblings = children.size();
   translate(textWidth(self), 0);
-  rotate(PI/8);
-  text(' '+C.self, 0, 0);
-  popMatrix();
+  rotate((-PI/4)*(numSiblings));
+  
+  for (int i = 0; i< numSiblings; i++){
+  Unit C = (Unit) children.get(i);  
+  
+//  pushMatrix();
+  rotate(PI/4);
+
+  text(C.self, 200, 0);
+//  popMatrix();
+  }
   }  
 }
