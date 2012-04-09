@@ -1,6 +1,4 @@
 
-ArrayList words;
-String[] st = new String[1];
 String[] tempSt;
 Unit u = new Unit("Creativity");
 Unit currentUnit = u;
@@ -19,14 +17,12 @@ void setup() {
   size(800,800);
   f = createFont("Arial",16,true);
 
-  words = new ArrayList();
   u.addChild("is");
 }
 
 void draw() {
   background(255);
-  int indent = 25;
-  
+  int indent = 25; 
   // Set the font and fill for text
   textFont(f);
   fill(0);
@@ -34,7 +30,16 @@ void draw() {
   // Display everything
   text("Click in this applet and type. \nHit return to save what you typed. ", indent, 40);
   text(typing,indent,90);
-  text(currentWord,indent,130);  
+  text("currentWord: "+currentWord,indent,130);
+  
+  text("u.currentNode.self: "+u.currentNode.self,indent,170);
+  text("children:",indent, 210);
+  Unit X;
+  for (int i = 0; i<u.currentNode.children.size();i++){
+    X = (Unit) u.currentNode.children.get(i);
+    text(X.self,indent,250+40*i);
+  }
+    
 
 
   pushMatrix();
@@ -46,34 +51,23 @@ void draw() {
 
 void keyPressed() {
   // If the return key is pressed, save the String and clear it
-  if (key == '\n' || key == '.' ) {
-    saved = saved+' '+typing;
-    u.reset();
-//    st[count] = typing;
-
-    tempSt = st;
-//    String[] st = new String[count+1];
-//    units.add(new Unit(typing));
-words.add(new String(typing));
-    // A String can be cleared by setting it equal to ""
-    typing = ""; 
+  if (key == '\n') {
+   u.reset();
+   typing = "";
+   saved = "";
+  } 
+  if (key == '.' ) {
+    currentWord = saved;
+    u.integrateWord(currentWord);
+    
   } 
   if (key == ' '){
-//    u = units.get(0);
-//    Unit u = (Unit) units.get(0);
-//    typing = u.self;
-//String S = (String) words.get(0);
-//typing = S;
-currentWord = saved;
-u.currentNode.integrateWord(currentWord);
-//currentUnit.addChild(saved);
-//currentUnit = (Unit) currentUnit.children.get(0);
-typing = typing+' ';
-inputWord = typing;
+    currentWord = saved;
+    typing = typing+' ';
+    inputWord = typing;
+    u.integrateWord(currentWord);
 
-saved = "";
-
-//String inputWord = typing;
+    saved = "";
   } else {
     // Otherwise, concatenate the String
     // Each character typed by the user is added to the end of the String variable.
@@ -83,7 +77,7 @@ saved = "";
 }
 
 class Unit {
-  String self; ArrayList children;Unit currentNode; 
+  String self; ArrayList children; Unit currentNode; 
   Unit (String self_in){
     self = self_in;
     children = new ArrayList();
@@ -97,11 +91,9 @@ class Unit {
     
     text(self, 0, 0);  
     int numSiblings = children.size();
-//    translate(textWidth(self), 0);
     rotate((-PI/8));
     for (int i = 0; i< numSiblings; i++){
-      Unit C = (Unit) children.get(i);    
-      
+      Unit C = (Unit) children.get(i);          
       pushMatrix();
        translate(100,0);
        C.display();
@@ -110,34 +102,40 @@ class Unit {
     }  
   }
 
-void integrateWord(String inputWord){
-
-  
-int numSiblings = children.size();
-
-          if (numSiblings==0) {
-          addChild(inputWord);
-          currentNode = (Unit) children.get(0);
-        }
-else{
-int matchDetected = 0;
-for (int i = 0; i< numSiblings; i++){
-
-      Unit currentSibling = (Unit) children.get(i);
-        if (inputWord == currentSibling.self) {
-          currentNode = (Unit) children.get(i);
+  void integrateWord(String inputWord){
+    // Find out how many children the current unit has (numSiblings).  
+    int numSiblings = currentNode.children.size();
+    // If there are no children, then the input word becomes a child of the current node.
+    if (numSiblings==0) {
+      currentNode.addChild(inputWord);
+      // We added a child to the current node and now that child becomes the relevant node.      
+      currentNode = (Unit) currentNode.children.get(0);
+      
+    }
+    // If there is already a child or a number of children, compare the input with them.
+    else{
+//      text("into else", 20,20);
+      int matchDetected = 0;
+      Unit X;
+//     for (int i = 0; i<currentNode.children.size();i++){
+//    X = (Unit) u.currentNode.children.get(i);
+      for (int i = 0; i< numSiblings; i++){  
+        Unit currentSibling = (Unit) currentNode.children.get(i);
+        if (inputWord.equals(currentSibling.self)) {        
+          currentNode = (Unit) currentNode.children.get(i);
           matchDetected = 1;
         }
         if (i==(numSiblings-1) & matchDetected==0) {
-          addChild(inputWord);
-          currentNode = (Unit) children.get(i+1);
+          this.addChild(inputWord); 
+ text("passed this", 20,20);         
+          currentNode = (Unit) this.children.get(i+1);
         }
-}
-}
-}
+      }
+    }
+  }
 
-void reset(){
-  currentNode = this;
-}
+  void reset(){
+    currentNode = this;
+  }
   
 }
