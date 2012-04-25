@@ -13,7 +13,7 @@ String saved = "";
 String currentWord = "";
 
 void setup() {
-  size(800,800);
+  size(1500,900);
   f = createFont("Arial",16,true);
 
   u.addChild("creativity");
@@ -21,6 +21,9 @@ void setup() {
 }
 
 void draw() {
+//  if(mousePressed == true){
+  
+//}
   background(255);
   int indent = 25; 
   // Set the font and fill for text
@@ -34,6 +37,9 @@ void draw() {
   
   text("u.currentNode.self: "+u.currentNode.self,indent,170);
   text("children:",indent, 210);
+  text("type length: "+typing.length(), indent, 240);
+  text("save length: "+saved.length(), indent, 270);
+
   Unit X;
   for (int i = 0; i<u.currentNode.children.size();i++){
     X = (Unit) u.currentNode.children.get(i);
@@ -51,13 +57,15 @@ void draw() {
 
 void keyPressed() {
   // If the return key is pressed, save the String and clear it
-  if (key == '\n') {
-   u.reset();
-   typing = "";
-   saved = "";
-   currentWord = "";
-  } 
-  if (key == '.' ) {
+
+//  if (key == '\n') {
+//   u.reset();
+//   typing = "";
+//   saved = "";
+//   currentWord = "";
+//  }
+//  if (key == CODED){}else
+  if (key == '\n' ) {
     currentWord = saved;
     u.integrateWord(currentWord);
     u.reset();
@@ -73,11 +81,22 @@ void keyPressed() {
     u.integrateWord(currentWord);
 
     saved = "";
-  } else if (key != '.' ) {
+  } else if (key == '\b'){
+    if (saved.length()>=1){
+//      saved = "";
+//      
+//    }else {
+    typing = typing.substring(0, typing.length()-1);
+    saved = saved.substring(0, saved.length()-1);
+    }
+  }
+  else if (key != '\n') {
+    if (key==CODED){}else{
     // Otherwise, concatenate the String
     // Each character typed by the user is added to the end of the String variable.
     typing = typing + key;
     saved = saved + key; 
+    }
   }
 }
 
@@ -147,5 +166,8 @@ class Unit {
   void reset(){
     currentNode = this;
   }
+  
+}
+void mousePressed(){
   
 }
