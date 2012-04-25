@@ -34,11 +34,7 @@ void draw() {
   text(saved,indent,130);  
   Unit u = new Unit("Creativity");
   u.addChild("is");
-  u.addChild("isn't");
-  u.addChild("could");
-  u.addChild("could");
-  u.addChild("could");
-//  text(u.self, height/2, width/2);
+
   pushMatrix();
   translate(100, height/2);
   u.display();
@@ -79,6 +75,7 @@ class Unit {
   }
   void addChild(String child_self) {
     children.add(new Unit(child_self));
+
   }
   void display() {
     
