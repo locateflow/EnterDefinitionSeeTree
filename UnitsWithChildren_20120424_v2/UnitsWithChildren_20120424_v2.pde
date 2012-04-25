@@ -97,15 +97,15 @@ class Unit {
     
     text(self, 0, 0);  
     int numSiblings = children.size();
-    rotate((-PI/8));
+    rotate((-PI/16));
     for (int i = 0; i< numSiblings; i++){
       Unit C = (Unit) children.get(i);          
       pushMatrix();
-      
+       line(0,0,100,0);
        translate(100,0);
        C.display();
       popMatrix();
-      rotate((PI/4)/(numSiblings-1));
+      rotate((PI/8)/(numSiblings-1));
     }  
   }
 

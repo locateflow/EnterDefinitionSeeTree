@@ -18,6 +18,7 @@ void setup() {
   f = createFont("Arial",16,true);
 
   u.addChild("is");
+  u.addChild("could");
 }
 
 void draw() {
@@ -55,10 +56,15 @@ void keyPressed() {
    u.reset();
    typing = "";
    saved = "";
+   currentWord = "";
   } 
   if (key == '.' ) {
     currentWord = saved;
     u.integrateWord(currentWord);
+    u.reset();
+   typing = "";
+   saved = "";
+   currentWord = "";
     
   } 
   if (key == ' '){
@@ -68,7 +74,7 @@ void keyPressed() {
     u.integrateWord(currentWord);
 
     saved = "";
-  } else {
+  } else if (key != '.' ) {
     // Otherwise, concatenate the String
     // Each character typed by the user is added to the end of the String variable.
     typing = typing + key;
@@ -95,6 +101,7 @@ class Unit {
     for (int i = 0; i< numSiblings; i++){
       Unit C = (Unit) children.get(i);          
       pushMatrix();
+      
        translate(100,0);
        C.display();
       popMatrix();
@@ -109,26 +116,26 @@ class Unit {
     if (numSiblings==0) {
       currentNode.addChild(inputWord);
       // We added a child to the current node and now that child becomes the relevant node.      
-      currentNode = (Unit) currentNode.children.get(0);
-      
+      currentNode = (Unit) currentNode.children.get(0);      
     }
     // If there is already a child or a number of children, compare the input with them.
     else{
-//      text("into else", 20,20);
       int matchDetected = 0;
       Unit X;
-//     for (int i = 0; i<currentNode.children.size();i++){
-//    X = (Unit) u.currentNode.children.get(i);
-      for (int i = 0; i< numSiblings; i++){  
-        Unit currentSibling = (Unit) currentNode.children.get(i);
-        if (inputWord.equals(currentSibling.self)) {        
+      
+      
+      for (int i = 0; i<currentNode.children.size();i++){
+        X = (Unit) currentNode.children.get(i);
+      
+          if (inputWord.equals(X.self)) {        
+
           currentNode = (Unit) currentNode.children.get(i);
           matchDetected = 1;
         }
-        if (i==(numSiblings-1) & matchDetected==0) {
-          this.addChild(inputWord); 
- text("passed this", 20,20);         
-          currentNode = (Unit) this.children.get(i+1);
+        else if (i==(numSiblings-1) & matchDetected==0) {
+          addChild(inputWord); 
+          text("passed this", 20,20);         
+          currentNode = (Unit) children.get(i+1);
         }
       }
     }
