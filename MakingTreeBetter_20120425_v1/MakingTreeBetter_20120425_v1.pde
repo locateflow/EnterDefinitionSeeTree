@@ -1,4 +1,3 @@
-
 String[] tempSt;
 Unit u = new Unit("Creativity");
 Unit currentUnit = u;
@@ -98,7 +97,7 @@ class Unit {
     text(self, 0, 0);  
     int numSiblings = children.size();
     translate(textWidth(self),0);
-    rotate((-PI/16)/(numSiblings-1));
+    rotate((-PI/16));
     for (int i = 0; i< numSiblings; i++){
       Unit C = (Unit) children.get(i);          
       pushMatrix();
