@@ -1,7 +1,6 @@
-
 String[] tempSt;
-Unit u = new Unit("Creativity");
-Unit currentUnit = u;
+Unit u = new Unit("");
+
 String inputWord;
 
 PFont f;
@@ -17,8 +16,8 @@ void setup() {
   size(800,800);
   f = createFont("Arial",16,true);
 
-  u.addChild("is");
-  u.addChild("could");
+  u.addChild("creativity");
+//  u.addChild("could");
 }
 
 void draw() {
@@ -98,6 +97,8 @@ class Unit {
     text(self, 0, 0);  
     int numSiblings = children.size();
     translate(textWidth(self),0);
+    rotate((-PI/4));
+    rotate((PI/4)/(numSiblings));
     for (int i = 0; i< numSiblings; i++){
       Unit C = (Unit) children.get(i);          
       pushMatrix();
@@ -105,11 +106,13 @@ class Unit {
        translate(100,0);
        C.display();
       popMatrix();
-      rotate((PI/8)/(numSiblings-1));
+      rotate((PI/2)/(numSiblings));
     }  
   }
 
   void integrateWord(String inputWord){
+////    if(currentNode.self.equals("")){
+//      translate(50,50);}
     // Find out how many children the current unit has (numSiblings).  
     int numSiblings = currentNode.children.size();
     // If there are no children, then the input word becomes a child of the current node.
