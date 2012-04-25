@@ -111,6 +111,8 @@ class Unit {
   }
 
   void integrateWord(String inputWord){
+////    if(currentNode.self.equals("")){
+//      translate(50,50);}
     // Find out how many children the current unit has (numSiblings).  
     int numSiblings = currentNode.children.size();
     // If there are no children, then the input word becomes a child of the current node.
