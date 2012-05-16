@@ -16,10 +16,10 @@ void draw() {
   b2.display();
 //  b1.repel(b2.xpos, b2.ypos);
 //  b2.repel(b1.xpos, b2.ypos);
- b1.vx = b1.vx*(1-sq(.0001*(b1.xpos-b2.xpos)));
- b2.vx = b2.vx*(1-sq(.0001*(b1.xpos-b2.xpos)));
-  b1.vy = b1.vy*(1-sq(.0001*(b1.ypos-b2.ypos)));
- b2.vy = b2.vy*(1-sq(.0001*(b1.ypos-b2.ypos)));
+ b1.vx = b1.vx*((.0001*(b1.xpos-b2.xpos)));
+ b2.vx = b2.vx*((.0001*(b1.xpos-b2.xpos)));
+  b1.vy = b1.vy*((.0001*(b1.ypos-b2.ypos)));
+ b2.vy = b2.vy*((.0001*(b1.ypos-b2.ypos)));
   
   b1.move();
   b2.move();

@@ -3,11 +3,13 @@
 // http://www.learningprocessing.com
 
 // Example 18-1: User input
-ArrayList units;
+//ArrayList units;
+ArrayList words;
 String[] st = new String[1];
 int count = 0;
 String[] tempSt;
-Unit u;
+//Unit u;
+String S;
 
 PFont f;
 
@@ -18,9 +20,10 @@ String typing = "";
 String saved = "";
 
 void setup() {
-  size(300,200);
+  size(800,800);
   f = createFont("Arial",16,true);
-  units = new ArrayList();
+//  units = new ArrayList();
+words = new ArrayList();
 }
 
 void draw() {
@@ -45,14 +48,17 @@ void keyPressed() {
     count = count + 1;
     tempSt = st;
 //    String[] st = new String[count+1];
-    units.add(new Unit(typing));
+//    units.add(new Unit(typing));
+words.add(new String(typing));
     // A String can be cleared by setting it equal to ""
     typing = ""; 
   } 
   if (key == 'z'){
 //    u = units.get(0);
-    Unit u = (Unit) units.get(0);
-    typing = u.self;
+//    Unit u = (Unit) units.get(0);
+//    typing = u.self;
+String S = (String) words.get(0);
+typing = S;
   } else {
     // Otherwise, concatenate the String
     // Each character typed by the user is added to the end of the String variable.
